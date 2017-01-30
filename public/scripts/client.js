@@ -5,6 +5,7 @@ getTasks();
 
 $('#task-form').on('submit', addTask);
 $('#task-list').on('click', '.complete', completeTask);
+
 $('#task-list').on('click', '.delete', deleteTask);
 
 });
@@ -62,7 +63,7 @@ function addTask(event) {
 
 function completeTask(event) {
     event.preventDefault();
-
+console.log($(this).data('id'));
     var $button = $(this);
     var $form = $button.closest('form');
     var data = $form.serialize();//information from the form

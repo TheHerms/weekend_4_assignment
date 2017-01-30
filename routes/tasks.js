@@ -88,12 +88,33 @@ router.put('/:id', function(req, res){
       res.sendStatus(500);
       done();
     } else {
-      client.query('COMPLETE tasks SET task=$2, WHERE id = $1 RETURNING *',
+      client.query('UPDATE tasks SET task=$2 WHERE id = $1 RETURNING *',
       [req.params.id, req.body.task],
       function(err, result){
         done();
         if (err){
           console.log('Error complete task', err);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+        }
+      });//end client-query statement
+    }
+  });
+});
+router.delete('/:id', function(req, res){
+  pool.connect(function(err, client, done){
+    if(err) {
+      console.log('Error conneting to DB', err);
+      res.sendStatus(500);
+      done();
+    } else {
+      client.query('DELETE FROM tasks WHERE id = $1 ',
+      [req.params.id],
+      function(err, result){
+        done();
+        if (err){
+          console.log('Error delete task', err);
           res.sendStatus(500);
         } else {
           res.send(result.rows);
