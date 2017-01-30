@@ -38,6 +38,10 @@ function displayTasks(tasks) {
     $deleteButton.data('id', task.id);
     $form.append($deleteButton);
 
+    if(task.finished == true) {
+      $form.addClass("finished")
+    }
+
   $li.append($form);
   $('#task-list').append($li);
   });

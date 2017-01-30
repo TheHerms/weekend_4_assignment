@@ -88,8 +88,8 @@ router.put('/:id', function(req, res){
       res.sendStatus(500);
       done();
     } else {
-      client.query('UPDATE tasks SET task=$2 WHERE id = $1 RETURNING *',
-      [req.params.id, req.body.task],
+      client.query('UPDATE tasks SET finished=$2 WHERE id = $1 RETURNING *',
+      [req.params.id, 'true'],
       function(err, result){
         done();
         if (err){
